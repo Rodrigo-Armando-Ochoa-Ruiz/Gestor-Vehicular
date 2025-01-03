@@ -24,7 +24,9 @@ public class InformacionVehicular {
             VEHICULOS.forEach(System.out::println);
     }
 
-    public static void buscarPorMarca(Scanner scanner, final List<Vehiculo> VEHICULOS) {
+    public static void buscarPorMarca(final List<Vehiculo> VEHICULOS) {
+        Scanner scanner = new Scanner(System.in);
+
         if (VEHICULOS.isEmpty()){
             System.out.println("No hay vehículos");
         }

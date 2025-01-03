@@ -11,18 +11,16 @@ public class MenuVehicular {
     }
 
     public static void ejecutar() {
-        Scanner scanner = new Scanner(System.in);
         boolean continuar = true;
 
-
-        while (continuar) {
-            try {
+        try(Scanner scanner = new Scanner(System.in)) {
+            while (continuar) {
                 switch (obtenerOpcionDeMenu(scanner)) {
-                    case 1 -> AdministradorVehicular.agregarVehiculo(scanner, VEHICULOS);//abrir scanner en los métodos
-                    case 2 -> AdministradorVehicular.eliminarVehiculo(scanner, VEHICULOS);
+                    case 1 -> AdministradorVehicular.agregarVehiculo(VEHICULOS);//abrir scanner en los métodos
+                    case 2 -> AdministradorVehicular.eliminarVehiculo(VEHICULOS);
                     case 3 -> InformacionVehicular.mostrarVehiculos(VEHICULOS);
-                    case 4 -> InformacionVehicular.buscarPorMarca(scanner, VEHICULOS);
-                    case 5 -> AdministradorVehicular.vender(scanner, VEHICULOS, VEHICULOS_VENDIDOS);
+                    case 4 -> InformacionVehicular.buscarPorMarca(VEHICULOS);
+                    case 5 -> AdministradorVehicular.vender(VEHICULOS, VEHICULOS_VENDIDOS);
                     case 6 -> InformacionVehicular.mostrarVentas(VEHICULOS_VENDIDOS);
                     case 7 -> {
                         System.out.println("Excelente día");
@@ -30,18 +28,13 @@ public class MenuVehicular {
                     }
                     default -> System.out.println("Opción inválida, intente nuevamente");
                 }
-            }catch (InputMismatchException e){
-                scanner.nextLine();
-                System.out.println("Opción inválida, ingrese un número entero");
             }
-            
+        }catch (InputMismatchException e){
+            System.out.println("Opción no válida, ingrese un número entero");
         }
     }
 
-    private static int obtenerOpcionDeMenu(Scanner scanner) {//Obtener opción seleccionada
-        try (Scanner scanner1 = new Scanner(System.in)){
-
-        }
+    private static int obtenerOpcionDeMenu(Scanner scanner) {
         System.out.println("================================================================");
         System.out.println("Bienvenido al gestor vehicular");
         System.out.println("================================================================");
@@ -55,7 +48,6 @@ public class MenuVehicular {
 
         int opcion = scanner.nextInt();
         scanner.nextLine();
-
         return opcion;
     }
 }
