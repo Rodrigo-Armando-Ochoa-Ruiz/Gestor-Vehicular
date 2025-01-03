@@ -21,7 +21,6 @@ public class Camion extends Vehiculo{
     public Vehiculo crear(Scanner scanner) {
         System.out.println("Ingrese la carga");
         carga = scanner.nextDouble();
-        this.cacularImpuesto();
         scanner.nextLine();
         return this;
     }

@@ -26,7 +26,6 @@ public class Coche extends Vehiculo{
     public Vehiculo crear(Scanner scanner) {
         System.out.println("Ingrese número de puertas");
         numeroPuertas = scanner.nextInt();
-        this.cacularImpuesto();
         scanner.nextLine();
         return this;
     }

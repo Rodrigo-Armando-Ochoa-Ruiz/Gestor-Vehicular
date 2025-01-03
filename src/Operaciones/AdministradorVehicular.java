@@ -42,7 +42,7 @@ public class AdministradorVehicular {
 
             Vehiculo vehiculo;
 
-            switch (opcion) {//switch expression
+            switch (opcion) {
                 case 1 -> vehiculo = new Moto();
                 case 2 -> vehiculo = new Coche();
                 case 3 -> vehiculo = new Camion();
@@ -93,40 +93,6 @@ public class AdministradorVehicular {
             }
 
             System.out.println("¿Desea eliminar otro vehículo? Y/N");
-            continuar = scanner.nextLine().equalsIgnoreCase("y");
-        }
-    }
-
-    public static void vender(Scanner scanner, List<Vehiculo> VEHICULOS, List<Vehiculo> VEHICULOS_VENDIDOS){
-        boolean continuar = true;
-
-        while (continuar) {
-            if (VEHICULOS.isEmpty())
-                System.out.println("No hay vehículos");
-            else {
-                VEHICULOS.forEach(System.out::println);
-                System.out.println("Ingrese el ID del vehículo a vender");
-                int idAVender = scanner.nextInt();
-                scanner.nextLine();
-
-                Optional<Vehiculo> vehiculoVendido = VEHICULOS.stream()
-                        .filter(v -> v.getIdVehiculo() == idAVender)
-                        .findFirst();
-                //El cálculo de impuestos tiene que ver al momento de vender el vehiculo
-                //Clase para registrar los vehículos vendidos con su precio impuesto
-                //Nombres de métodos y clases
-                //Revisar los ID si no se rompen al regresar a una instancia
-                if (vehiculoVendido.isPresent()) {
-                    Vehiculo vehiculoAVender = vehiculoVendido.get();
-                    System.out.println(vehiculoAVender);
-                    VEHICULOS_VENDIDOS.add(vehiculoAVender);
-                    VEHICULOS.remove(vehiculoAVender);
-                    System.out.println("Vehículo vendido correctamente");
-                } else
-                    System.out.println("No se encontró un vehículo con ese ID");
-            }
-
-            System.out.println("¿Desea vender otro vehículo? Y/N");
             continuar = scanner.nextLine().equalsIgnoreCase("y");
         }
     }

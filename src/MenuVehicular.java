@@ -1,5 +1,6 @@
 import Operaciones.AdministradorVehicular;
 import Operaciones.InformacionVehicular;
+import Operaciones.VentaVechiular;
 import modelos.Vehiculo;
 import java.util.*;
 
@@ -22,7 +23,7 @@ public class MenuVehicular {
                     case 2 -> AdministradorVehicular.eliminarVehiculo(scanner, VEHICULOS);
                     case 3 -> InformacionVehicular.mostrarVehiculos(VEHICULOS);
                     case 4 -> InformacionVehicular.buscarPorMarca(scanner, VEHICULOS);
-                    case 5 -> AdministradorVehicular.vender(scanner, VEHICULOS, VEHICULOS_VENDIDOS);
+                    case 5 -> VentaVechiular.vender(scanner, VEHICULOS, VEHICULOS_VENDIDOS);
                     case 6 -> InformacionVehicular.mostrarVentas(VEHICULOS_VENDIDOS);
                     case 7 -> {
                         System.out.println("Excelente día");

@@ -31,17 +31,13 @@ public class Moto extends Vehiculo{
 
     @Override
     public Vehiculo crear(Scanner scanner) {
-        boolean continuar = true;
         System.out.println("Ingrese el tipo de motor");
-
-        while (continuar) {//Recursividad al tirar la excepción cachearla y volver a llamar al método
-            try {
+        try {
                 motor = scanner.nextLine();
                 if (!(motor.equalsIgnoreCase("2 tiempos") || motor.equalsIgnoreCase("4 tiempos")))
                     throw new IncorrectParameterException(this);
-                this.cacularImpuesto();
-                continuar = false;
-            }catch (IncorrectParameterException e){}
+        }catch (IncorrectParameterException e){
+                crear(scanner);
         }
         return this;
     }
