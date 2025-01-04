@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
-public class AdministradorVehicular {
-    private AdministradorVehicular(){}
+public class AltaBajaVehicular {
+    private AltaBajaVehicular(){}
     public static void agregarVehiculo(Scanner scanner, List<Vehiculo> VEHICULOS) {
         int anio;
         double precio;

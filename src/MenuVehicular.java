@@ -1,5 +1,5 @@
-import Operaciones.AdministradorVehicular;
-import Operaciones.InformacionVehicular;
+import Operaciones.AltaBajaVehicular;
+import Operaciones.InventarioVehicular;
 import Operaciones.VentaVechiular;
 import modelos.Vehiculo;
 import java.util.*;
@@ -19,12 +19,12 @@ public class MenuVehicular {
         while (continuar) {
             try {
                 switch (obtenerOpcionDeMenu(scanner)) {
-                    case 1 -> AdministradorVehicular.agregarVehiculo(scanner, VEHICULOS);//abrir scanner en los métodos
-                    case 2 -> AdministradorVehicular.eliminarVehiculo(scanner, VEHICULOS);
-                    case 3 -> InformacionVehicular.mostrarVehiculos(VEHICULOS);
-                    case 4 -> InformacionVehicular.buscarPorMarca(scanner, VEHICULOS);
+                    case 1 -> AltaBajaVehicular.agregarVehiculo(scanner, VEHICULOS);//abrir scanner en los métodos
+                    case 2 -> AltaBajaVehicular.eliminarVehiculo(scanner, VEHICULOS);
+                    case 3 -> InventarioVehicular.mostrarVehiculos(VEHICULOS);
+                    case 4 -> InventarioVehicular.buscarPorMarca(scanner, VEHICULOS);
                     case 5 -> VentaVechiular.vender(scanner, VEHICULOS, VEHICULOS_VENDIDOS);
-                    case 6 -> InformacionVehicular.mostrarVentas(VEHICULOS_VENDIDOS);
+                    case 6 -> InventarioVehicular.mostrarVentas(VEHICULOS_VENDIDOS);
                     case 7 -> {
                         System.out.println("Excelente día");
                         continuar = false;

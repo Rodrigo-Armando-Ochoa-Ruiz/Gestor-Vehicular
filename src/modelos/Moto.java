@@ -30,7 +30,7 @@ public class Moto extends Vehiculo{
     }
 
     @Override
-    public Vehiculo crear(Scanner scanner) {
+    public Vehiculo crear(Scanner scanner){
         System.out.println("Ingrese el tipo de motor");
         try {
                 motor = scanner.nextLine();
