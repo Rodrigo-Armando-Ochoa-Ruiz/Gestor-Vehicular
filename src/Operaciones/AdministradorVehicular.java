@@ -12,9 +12,10 @@ import java.util.Scanner;
 
 public class AdministradorVehicular {
 
-    private AdministradorVehicular(){}
+    private AdministradorVehicular() {
+    }
 
-    public static void agregarVehiculo(final List<Vehiculo> VEHICULOS) {
+    public static void agregarVehiculo(final List<Vehiculo> VEHICULOS, Scanner scanner) {
         int anio;
         double precio;
         String modelo;
@@ -22,93 +23,83 @@ public class AdministradorVehicular {
         int opcion;
         boolean continuar = true;
 
-        try (Scanner scanner = new Scanner(System.in)){
-            while (continuar) {
-                System.out.println("Elija el vehículo a agregar");
-                System.out.println("1. Moto");
-                System.out.println("2. Coche");
-                System.out.println("3. Camión");
-                System.out.println("4. Salir");
-                opcion = scanner.nextInt();
+        while (continuar) {
+            System.out.println("Elija el vehículo a agregar");
+            System.out.println("1. Moto");
+            System.out.println("2. Coche");
+            System.out.println("3. Camión");
+            System.out.println("4. Salir");
+            opcion = scanner.nextInt();
 
-                System.out.println("Ingrese el año");
-                anio = scanner.nextInt();
+            System.out.println("Ingrese el año");
+            anio = scanner.nextInt();
 
-                System.out.println("Ingrese el precio");
-                precio = scanner.nextDouble();
+            System.out.println("Ingrese el precio");
+            precio = scanner.nextDouble();
+            scanner.nextLine();
+
+            System.out.println("Ingrese la marca");
+            marca = scanner.nextLine();
+
+            System.out.println("Ingrese el modelo");
+            modelo = scanner.nextLine();
+
+            Vehiculo vehiculo;
+
+            switch (opcion) {
+                case 1 -> vehiculo = new Moto();
+                case 2 -> vehiculo = new Coche();
+                case 3 -> vehiculo = new Camion();
+                case 4 -> {
+                    return;
+                }
+                default -> {
+                    System.out.println("Opción no válida");
+                    return;
+                }
+            }
+
+            vehiculo.setAnio(anio);
+            vehiculo.setMarca(marca);
+            vehiculo.setModelo(modelo);
+            vehiculo.setPrecio(precio);
+            VEHICULOS.add(vehiculo.crear());
+
+            System.out.println("¿Desea agregar otro vehículo? Y/N");
+            continuar = scanner.nextLine().equalsIgnoreCase("y");
+        }
+    }
+
+    public static void eliminarVehiculo(List<Vehiculo> VEHICULOS, Scanner scanner) {
+        boolean continuar = true;
+
+        while (continuar) {
+            if (VEHICULOS.isEmpty()) {
+                System.out.println("No hay vehículos");
+                break;
+            } else {
+                VEHICULOS.forEach(System.out::println);
+                System.out.println("Ingrese el ID del vehículo a eliminar");
+                int eliminar = scanner.nextInt();
                 scanner.nextLine();
 
-                System.out.println("Ingrese la marca");
-                marca = scanner.nextLine();
+                Optional<Vehiculo> vehiculoAEliminar = VEHICULOS.stream()
+                        .filter(v -> v.getIdVehiculo() == eliminar)
+                        .findFirst();
 
-                System.out.println("Ingrese el modelo");
-                modelo = scanner.nextLine();
-
-                Vehiculo vehiculo;
-
-                switch (opcion) {
-                    case 1 -> vehiculo = new Moto();
-                    case 2 -> vehiculo = new Coche();
-                    case 3 -> vehiculo = new Camion();
-                    case 4 -> {
-                        return;
-                    }
-                    default -> {
-                        System.out.println("Opción no válida");
-                        return;
-                    }
-                }
-
-                vehiculo.setAnio(anio);
-                vehiculo.setMarca(marca);
-                vehiculo.setModelo(modelo);
-                vehiculo.setPrecio(precio);
-                VEHICULOS.add(vehiculo.crear());
-
-                System.out.println("¿Desea agregar otro vehículo? Y/N");
-                continuar = scanner.nextLine().equalsIgnoreCase("y");
+                if (vehiculoAEliminar.isPresent()) {
+                    VEHICULOS.remove(vehiculoAEliminar.get());
+                    System.out.println("Vehículo eliminado correctamente");
+                } else
+                    System.out.println("No se encontró un vehículo con ese ID");
             }
-        }catch (InputMismatchException e){
-            System.err.println("Ingreso incorrecto de datos, revise nuevamente");
+
+            System.out.println("¿Desea eliminar otro vehículo? Y/N");
+            continuar = scanner.nextLine().equalsIgnoreCase("y");
         }
     }
 
-    public static void eliminarVehiculo(List<Vehiculo> VEHICULOS) {
-        boolean continuar = true;
-        Scanner scanner = new Scanner(System.in);
-        try {
-            while (continuar) {
-                if (VEHICULOS.isEmpty()) {
-                    System.out.println("No hay vehículos");
-                    break;
-                } else {
-                    VEHICULOS.forEach(System.out::println);
-                    System.out.println("Ingrese el ID del vehículo a eliminar");
-                    int eliminar = scanner.nextInt();
-                    scanner.nextLine();
-
-                    Optional<Vehiculo> vehiculoAEliminar = VEHICULOS.stream()
-                            .filter(v -> v.getIdVehiculo() == eliminar)
-                            .findFirst();
-
-                    if (vehiculoAEliminar.isPresent()) {
-                        VEHICULOS.remove(vehiculoAEliminar.get());
-                        System.out.println("Vehículo eliminado correctamente");
-                    } else
-                        System.out.println("No se encontró un vehículo con ese ID");
-                }
-
-                System.out.println("¿Desea eliminar otro vehículo? Y/N");
-                continuar = scanner.nextLine().equalsIgnoreCase("y");
-            }
-        }catch (InputMismatchException e){
-
-        }
-    }
-
-    public static void vender(List<Vehiculo> VEHICULOS, List<Vehiculo> VEHICULOS_VENDIDOS){
-        Scanner scanner = new Scanner(System.in);
-
+    public static void vender(List<Vehiculo> VEHICULOS, List<Vehiculo> VEHICULOS_VENDIDOS, Scanner scanner) {
         boolean continuar = true;
 
         while (continuar) {
@@ -123,11 +114,7 @@ public class AdministradorVehicular {
                 Optional<Vehiculo> vehiculoVendido = VEHICULOS.stream()
                         .filter(v -> v.getIdVehiculo() == idAVender)
                         .findFirst();
-                //El cálculo de impuestos tiene que ver al momento de vender el vehiculo
-                //Clase para registrar los vehículos vendidos con su precio impuesto
-                //Nombres de métodos y clases
-                //Los métodos deben abrir su propio scanner
-                //Revisar los ID si no se rompen al regresar a una instancia
+
                 if (vehiculoVendido.isPresent()) {
                     Vehiculo vehiculoAVender = vehiculoVendido.get();
                     System.out.println(vehiculoAVender);
@@ -137,7 +124,6 @@ public class AdministradorVehicular {
                 } else
                     System.out.println("No se encontró un vehículo con ese ID");
             }
-
             System.out.println("¿Desea vender otro vehículo? Y/N");
             continuar = scanner.nextLine().equalsIgnoreCase("y");
         }

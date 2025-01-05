@@ -7,8 +7,7 @@ public class MenuVehicular {
     private static final List<Vehiculo> VEHICULOS = new ArrayList<>();
     private static final List<Vehiculo> VEHICULOS_VENDIDOS = new ArrayList<>();
 
-    private MenuVehicular() {
-    }
+    private MenuVehicular() {}
 
     public static void ejecutar() {
         boolean continuar = true;
@@ -16,11 +15,11 @@ public class MenuVehicular {
         try(Scanner scanner = new Scanner(System.in)) {
             while (continuar) {
                 switch (obtenerOpcionDeMenu(scanner)) {
-                    case 1 -> AdministradorVehicular.agregarVehiculo(VEHICULOS);//abrir scanner en los métodos
-                    case 2 -> AdministradorVehicular.eliminarVehiculo(VEHICULOS);
+                    case 1 -> AdministradorVehicular.agregarVehiculo(VEHICULOS, scanner);//abrir scanner en los métodos
+                    case 2 -> AdministradorVehicular.eliminarVehiculo(VEHICULOS, scanner);
                     case 3 -> InformacionVehicular.mostrarVehiculos(VEHICULOS);
-                    case 4 -> InformacionVehicular.buscarPorMarca(VEHICULOS);
-                    case 5 -> AdministradorVehicular.vender(VEHICULOS, VEHICULOS_VENDIDOS);
+                    case 4 -> InformacionVehicular.buscarPorMarca(VEHICULOS, scanner);
+                    case 5 -> AdministradorVehicular.vender(VEHICULOS, VEHICULOS_VENDIDOS , scanner);
                     case 6 -> InformacionVehicular.mostrarVentas(VEHICULOS_VENDIDOS);
                     case 7 -> {
                         System.out.println("Excelente día");
