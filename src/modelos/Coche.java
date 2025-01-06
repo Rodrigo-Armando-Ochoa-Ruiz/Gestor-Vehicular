@@ -1,6 +1,5 @@
 package modelos;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Coche extends Vehiculo{
@@ -24,17 +23,10 @@ public class Coche extends Vehiculo{
     }
 
     @Override
-    public Vehiculo crear() {
+    public Vehiculo crear(Scanner scanner) {
         System.out.println("Ingrese número de puertas");
-
-        try(Scanner scanner = new Scanner(System.in)){
-            numeroPuertas = scanner.nextInt();
-            this.cacularImpuesto();
-            scanner.nextLine();
-        }catch (InputMismatchException e){
-            System.err.println("Ingrese el número de puertas como número entero");
-            crear();
-        }
+        numeroPuertas = scanner.nextInt();
+        scanner.nextLine();
         return this;
     }
 

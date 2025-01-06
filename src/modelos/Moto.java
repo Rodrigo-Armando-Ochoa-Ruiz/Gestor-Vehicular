@@ -5,7 +5,7 @@ import exceptions.IncorrectParameterException;
 
 import java.util.Scanner;
 
-public class Moto extends Vehiculo {
+public class Moto extends Vehiculo{
     private String motor;
 
     public Moto() {
@@ -30,17 +30,14 @@ public class Moto extends Vehiculo {
     }
 
     @Override
-    public Vehiculo crear() {
+    public Vehiculo crear(Scanner scanner){
         System.out.println("Ingrese el tipo de motor");
-
-
-        try (Scanner scanner = new Scanner(System.in)){
-            motor = scanner.nextLine();
-            if (!(motor.equalsIgnoreCase("2 tiempos") || motor.equalsIgnoreCase("4 tiempos")))
-                throw new IncorrectParameterException(this);
-            this.cacularImpuesto();
-        } catch (IncorrectParameterException e) {
-            crear();
+        try {
+                motor = scanner.nextLine();
+                if (!(motor.equalsIgnoreCase("2 tiempos") || motor.equalsIgnoreCase("4 tiempos")))
+                    throw new IncorrectParameterException(this);
+        }catch (IncorrectParameterException e){
+                crear(scanner);
         }
         return this;
     }

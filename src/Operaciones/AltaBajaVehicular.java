@@ -5,17 +5,20 @@ import modelos.Coche;
 import modelos.Moto;
 import modelos.Vehiculo;
 
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
-public class AdministradorVehicular {
+public class AltaBajaVehicular {
+    private Scanner scanner;
+    private final List<Vehiculo> VEHICULOS;
 
-    private AdministradorVehicular() {
+    public AltaBajaVehicular(Scanner scanner, List<Vehiculo> VEHICULOS) {
+        this.scanner = scanner;
+        this.VEHICULOS = VEHICULOS;
     }
 
-    public static void agregarVehiculo(final List<Vehiculo> VEHICULOS, Scanner scanner) {
+    public void agregarVehiculo() {
         int anio;
         double precio;
         String modelo;
@@ -63,14 +66,14 @@ public class AdministradorVehicular {
             vehiculo.setMarca(marca);
             vehiculo.setModelo(modelo);
             vehiculo.setPrecio(precio);
-            VEHICULOS.add(vehiculo.crear());
+            VEHICULOS.add(vehiculo.crear(scanner));
 
             System.out.println("¿Desea agregar otro vehículo? Y/N");
             continuar = scanner.nextLine().equalsIgnoreCase("y");
         }
     }
 
-    public static void eliminarVehiculo(List<Vehiculo> VEHICULOS, Scanner scanner) {
+    public void eliminarVehiculo() {
         boolean continuar = true;
 
         while (continuar) {
@@ -95,36 +98,6 @@ public class AdministradorVehicular {
             }
 
             System.out.println("¿Desea eliminar otro vehículo? Y/N");
-            continuar = scanner.nextLine().equalsIgnoreCase("y");
-        }
-    }
-
-    public static void vender(List<Vehiculo> VEHICULOS, List<Vehiculo> VEHICULOS_VENDIDOS, Scanner scanner) {
-        boolean continuar = true;
-
-        while (continuar) {
-            if (VEHICULOS.isEmpty())
-                System.out.println("No hay vehículos");
-            else {
-                VEHICULOS.forEach(System.out::println);
-                System.out.println("Ingrese el ID del vehículo a vender");
-                int idAVender = scanner.nextInt();
-                scanner.nextLine();
-
-                Optional<Vehiculo> vehiculoVendido = VEHICULOS.stream()
-                        .filter(v -> v.getIdVehiculo() == idAVender)
-                        .findFirst();
-
-                if (vehiculoVendido.isPresent()) {
-                    Vehiculo vehiculoAVender = vehiculoVendido.get();
-                    System.out.println(vehiculoAVender);
-                    VEHICULOS_VENDIDOS.add(vehiculoAVender);
-                    VEHICULOS.remove(vehiculoAVender);
-                    System.out.println("Vehículo vendido correctamente");
-                } else
-                    System.out.println("No se encontró un vehículo con ese ID");
-            }
-            System.out.println("¿Desea vender otro vehículo? Y/N");
             continuar = scanner.nextLine().equalsIgnoreCase("y");
         }
     }

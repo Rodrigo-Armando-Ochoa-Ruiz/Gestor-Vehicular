@@ -1,5 +1,6 @@
-import Operaciones.AdministradorVehicular;
-import Operaciones.InformacionVehicular;
+import Operaciones.AltaBajaVehicular;
+import Operaciones.InventarioVehicular;
+import Operaciones.VentaVechiular;
 import modelos.Vehiculo;
 import java.util.*;
 
@@ -10,26 +11,31 @@ public class MenuVehicular {
     private MenuVehicular() {}
 
     public static void ejecutar() {
+        Scanner scanner = new Scanner(System.in);
+        AltaBajaVehicular altaBajaVehicular = new AltaBajaVehicular(scanner, VEHICULOS);
+
+
         boolean continuar = true;
 
-        try(Scanner scanner = new Scanner(System.in)) {
-            while (continuar) {
+        while (continuar) {
+            try {
                 switch (obtenerOpcionDeMenu(scanner)) {
-                    case 1 -> AdministradorVehicular.agregarVehiculo(VEHICULOS, scanner);//abrir scanner en los métodos
-                    case 2 -> AdministradorVehicular.eliminarVehiculo(VEHICULOS, scanner);
-                    case 3 -> InformacionVehicular.mostrarVehiculos(VEHICULOS);
-                    case 4 -> InformacionVehicular.buscarPorMarca(VEHICULOS, scanner);
-                    case 5 -> AdministradorVehicular.vender(VEHICULOS, VEHICULOS_VENDIDOS , scanner);
-                    case 6 -> InformacionVehicular.mostrarVentas(VEHICULOS_VENDIDOS);
+                    case 1 -> altaBajaVehicular.agregarVehiculo();
+                    case 2 -> altaBajaVehicular.eliminarVehiculo();
+                    case 3 -> InventarioVehicular.mostrarVehiculos(VEHICULOS);
+                    case 4 -> InventarioVehicular.buscarPorMarca(scanner, VEHICULOS);
+                    case 5 -> VentaVechiular.vender(scanner, VEHICULOS, VEHICULOS_VENDIDOS);
+                    case 6 -> VentaVechiular.mostrarVentas(VEHICULOS_VENDIDOS);
                     case 7 -> {
                         System.out.println("Excelente día");
                         continuar = false;
                     }
                     default -> System.out.println("Opción inválida, intente nuevamente");
                 }
+            }catch (InputMismatchException e){
+                scanner.nextLine();
+                System.out.println("Opción inválida, ingrese un número entero");
             }
-        }catch (InputMismatchException e){
-            System.out.println("Opción no válida, ingrese un número entero");
         }
     }
 
@@ -47,6 +53,7 @@ public class MenuVehicular {
 
         int opcion = scanner.nextInt();
         scanner.nextLine();
+
         return opcion;
     }
 }

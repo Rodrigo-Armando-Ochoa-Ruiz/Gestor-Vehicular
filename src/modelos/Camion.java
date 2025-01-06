@@ -1,6 +1,5 @@
 package modelos;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Camion extends Vehiculo{
@@ -19,17 +18,10 @@ public class Camion extends Vehiculo{
     }
 
     @Override
-    public Vehiculo crear() {
+    public Vehiculo crear(Scanner scanner) {
         System.out.println("Ingrese la carga");
-
-        try(Scanner scanner = new Scanner(System.in)){
-            carga = scanner.nextDouble();
-            this.cacularImpuesto();
-            scanner.nextLine();
-        }catch (InputMismatchException e){
-            System.out.println("Ingrese la carga numérica");
-            crear();
-        }
+        carga = scanner.nextDouble();
+        scanner.nextLine();
         return this;
     }
 
