@@ -40,4 +40,15 @@ public class VentaVechiular {
             continuar = scanner.nextLine().equalsIgnoreCase("y");
         }
     }
+
+    public static void mostrarVentas(final List<Vehiculo> VEHICULOS_VENDIDOS){
+        if (VEHICULOS_VENDIDOS.isEmpty())
+            System.out.println("No hay ventas");
+        else{
+            VEHICULOS_VENDIDOS.forEach(System.out::println);
+            System.out.println("TOTAL: " + VEHICULOS_VENDIDOS.stream()
+                    .map(v -> v.getImpuesto()+v.getPrecio())
+                    .reduce(0.0, Double::sum));
+        }
+    }
 }

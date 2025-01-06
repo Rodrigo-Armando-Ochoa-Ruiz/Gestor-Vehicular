@@ -8,23 +8,24 @@ public class MenuVehicular {
     private static final List<Vehiculo> VEHICULOS = new ArrayList<>();
     private static final List<Vehiculo> VEHICULOS_VENDIDOS = new ArrayList<>();
 
-    private MenuVehicular() {
-    }
+    private MenuVehicular() {}
 
     public static void ejecutar() {
         Scanner scanner = new Scanner(System.in);
-        boolean continuar = true;
+        AltaBajaVehicular altaBajaVehicular = new AltaBajaVehicular(scanner, VEHICULOS);
 
+
+        boolean continuar = true;
 
         while (continuar) {
             try {
                 switch (obtenerOpcionDeMenu(scanner)) {
-                    case 1 -> AltaBajaVehicular.agregarVehiculo(scanner, VEHICULOS);//abrir scanner en los métodos
-                    case 2 -> AltaBajaVehicular.eliminarVehiculo(scanner, VEHICULOS);
+                    case 1 -> altaBajaVehicular.agregarVehiculo();
+                    case 2 -> altaBajaVehicular.eliminarVehiculo();
                     case 3 -> InventarioVehicular.mostrarVehiculos(VEHICULOS);
                     case 4 -> InventarioVehicular.buscarPorMarca(scanner, VEHICULOS);
                     case 5 -> VentaVechiular.vender(scanner, VEHICULOS, VEHICULOS_VENDIDOS);
-                    case 6 -> InventarioVehicular.mostrarVentas(VEHICULOS_VENDIDOS);
+                    case 6 -> VentaVechiular.mostrarVentas(VEHICULOS_VENDIDOS);
                     case 7 -> {
                         System.out.println("Excelente día");
                         continuar = false;
@@ -35,14 +36,10 @@ public class MenuVehicular {
                 scanner.nextLine();
                 System.out.println("Opción inválida, ingrese un número entero");
             }
-            
         }
     }
 
-    private static int obtenerOpcionDeMenu(Scanner scanner) {//Obtener opción seleccionada
-        try (Scanner scanner1 = new Scanner(System.in)){
-
-        }
+    private static int obtenerOpcionDeMenu(Scanner scanner) {
         System.out.println("================================================================");
         System.out.println("Bienvenido al gestor vehicular");
         System.out.println("================================================================");

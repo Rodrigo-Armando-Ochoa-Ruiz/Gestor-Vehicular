@@ -10,8 +10,14 @@ import java.util.Optional;
 import java.util.Scanner;
 
 public class AltaBajaVehicular {
-    private AltaBajaVehicular(){}
-    public static void agregarVehiculo(Scanner scanner, List<Vehiculo> VEHICULOS) {
+    private Scanner scanner;
+    private final List<Vehiculo> VEHICULOS;
+
+    public AltaBajaVehicular(Scanner scanner, List<Vehiculo> VEHICULOS){
+        this.scanner = scanner;
+        this.VEHICULOS = VEHICULOS;
+    }
+    public void agregarVehiculo() {
         int anio;
         double precio;
         String modelo;
@@ -66,7 +72,7 @@ public class AltaBajaVehicular {
         }
     }
 
-    public static void eliminarVehiculo(Scanner scanner, List<Vehiculo> VEHICULOS) {
+    public void eliminarVehiculo() {
         boolean continuar = true;
 
         while (continuar) {
